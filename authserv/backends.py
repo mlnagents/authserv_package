@@ -3,21 +3,20 @@ from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.models import User
 from authserv.clients.auth import AuthServ
 
-# class AuthenticationBackend(ModelBackend):
-#     def authenticate(self, request, username=None, password=None, token=None, **kwargs):
-#         print(request.COOKIES)
-#         auth_result = AuthServ().auth(username, password)
+class AuthenticationBackend(ModelBackend):
+    def authenticate(self, request, username=None, password=None, token=None, **kwargs):
+        auth_result = AuthServ().auth(username, password)
 
-#         if auth_result is None:
-#             return None
+        if auth_result is None:
+            return None
 
-#         try:
-#             user = User.objects.get(username=username)
-#         except User.DoesNotExist:
-#             user = User(username=username)
-#             user.is_staff = True
-#             user.save()
-#         return user
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            user = User(username=username)
+            user.is_staff = True
+            user.save()
+        return user
 
 class ValidateTokenBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, token=None, **kwargs):
