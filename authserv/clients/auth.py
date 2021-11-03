@@ -12,7 +12,7 @@ class AuthServ:
             url=f"{settings.AUTHSERV_HOST}/{self.api_path}/auth", data=json.dumps({
                 "phone": username,
                 "password": password,
-                "service": "policiesserv"
+                "service": settings.AUTHSERV_SERVICE_NAME
             }), headers=self.headers
         )
         print(resp.text)
