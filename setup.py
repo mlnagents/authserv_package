@@ -10,6 +10,7 @@ setup(
     version = version,
     packages = find_packages(),
     include_package_data = True,
+    install_requires=["requests"],
     author = "V.Egorov",
     author_email = "v.egorov@millionagents.com",
     description = long_description,
