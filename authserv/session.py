@@ -1,12 +1,8 @@
 
-from django.contrib.sessions.middleware import SessionMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware as DjangoSessionMiddleweare
 from django.contrib.auth.models import User
-from policiesserv.services.auth import AuthServ
+from authserv.clients.auth import AuthServ
 
-# class SessionMiddleware(SessionMiddleware):
-#     def process_request(self, request):
-#         session_key = request.COOKIES.get("sessionid")
-#         if session_key:
-#             request.session = self.SessionStore(session_key)
-#         else:
-#             pass
+class SessionMiddleware(DjangoSessionMiddleweare):
+    def process_request(self, request):
+        pass
