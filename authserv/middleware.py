@@ -2,7 +2,7 @@
 from django.conf import settings
 from django.contrib.auth.middleware import RemoteUserMiddleware
 from django.http import HttpResponseRedirect
-from django.contrib.auth.models import User
+from django.urls import resolve
 from authserv.clients.auth import AuthServ
 
 class AuthservMiddleware(RemoteUserMiddleware):
@@ -21,7 +21,7 @@ class AuthservMiddleware(RemoteUserMiddleware):
         if auth_result["status"] is not 200:
             if auth_result["status"] == 401:
                 self._remove_invalid_user(request)
-                return self.response_redirect_class(f"{auth_result['body']['redirect_url']}?redirect_url=http://localhost:8001/django/admin")
+                return self.response_redirect_class(f"{auth_result['body']['redirect_url']}?redirect_url={resolve(request.path_info).url_name}")
             if auth_result["status"] == 403:
                 self._remove_invalid_user(request)
                 return self.response_redirect_class(f"{auth_result['body']['redirect_url']}")
