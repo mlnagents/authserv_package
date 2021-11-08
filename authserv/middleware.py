@@ -17,7 +17,7 @@ class AuthservMiddleware(RemoteUserMiddleware):
         auth_result = AuthServ().auth_session(authserv_token)
 
         print(auth_result)
-        if auth_result["status"] is not 200:
+        if auth_result["status"] != 200:
             if auth_result["status"] == 401:
                 self._remove_invalid_user(request)
                 return self.response_redirect_class(f"{auth_result['body']['redirect_url']}?redirect_url={request.build_absolute_uri()}")
