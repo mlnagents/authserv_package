@@ -11,22 +11,16 @@ class AuthServ:
         resp = requests.post(
             url=f"{settings.AUTHSERV_HOST}/{self.api_path}/auth", data=json.dumps({
                 "phone": username,
-                "password": password,
-                "service": settings.AUTHSERV_SERVICE_NAME
+                "password": password
             }), headers=self.headers
         )
-        print(resp.text)
         if resp.status_code != 200:
             return None
         else:
             return resp.json()
 
-    def session(self, token):
+    def auth_session(self, token):
         resp = requests.get(
-            url=f"{settings.AUTHSERV_HOST}/{self.api_path}/session?token={token}", headers=self.headers
+            url=f"{settings.AUTHSERV_HOST}/{self.api_path}/session?token={token}&service={settings.AUTHSERV_SERVICE_NAME}", headers=self.headers
         )
-        print(resp.text)
-        if resp.status_code != 200:
-            return None
-        else:
-            return resp.json()
+        return {"status": resp.status_code, "body": resp.json()}
