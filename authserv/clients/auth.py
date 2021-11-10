@@ -14,10 +14,7 @@ class AuthServ:
                 "password": password
             }), headers=self.headers
         )
-        if resp.status_code != 200:
-            return None
-        else:
-            return resp.json()
+        return {"status": resp.status_code, "body": resp.json()}
 
     def auth_session(self, token):
         resp = requests.get(
