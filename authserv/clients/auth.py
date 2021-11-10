@@ -10,7 +10,7 @@ class AuthServ:
     def auth(self, username, password):
         resp = requests.post(
             url=f"{settings.AUTHSERV_HOST}/{self.api_path}/auth", data=json.dumps({
-                "phone": username,
+                "username": username,
                 "password": password
             }), headers=self.headers
         )
