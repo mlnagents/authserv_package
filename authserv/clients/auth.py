@@ -25,7 +25,7 @@ class AuthServ:
         return {"status": resp.status_code, "body": resp.json()}
     
     def delete_session(self, token):
-        resp = requests.get(
+        resp = requests.delete(
             url=f"{settings.AUTHSERV_HOST}/{self.api_path}/session", headers=self.headers, data=json.dumps({"token": token})
         )
         return {"status": resp.status_code, "body": resp.json()}
