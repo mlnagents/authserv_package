@@ -7,6 +7,12 @@ class AuthServ:
     api_path = "api/v1"
     headers = {"X-Token": settings.AUTHSERV_TOKEN, "Content-Type": "application/json"}
 
+    def register(self, options):
+        resp = requests.post(
+            url=f"{settings.AUTHSERV_HOST}/{self.api_path}/user", data=json.dumps(options), headers=self.headers
+        )
+        return {"status": resp.status_code, "body": resp.json()}
+
     def auth(self, username, password, user_agent=None, ip=None):
         resp = requests.post(
             url=f"{settings.AUTHSERV_HOST}/{self.api_path}/auth", data=json.dumps({
