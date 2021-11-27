@@ -12,6 +12,12 @@ class AuthServ:
             url=f"{settings.AUTHSERV_HOST}/{self.api_path}/user", data=json.dumps(options), headers=self.headers
         )
         return {"status": resp.status_code, "body": resp.json()}
+    
+    def update(self, username, options):
+        resp = requests.put(
+            url=f"{settings.AUTHSERV_HOST}/{self.api_path}/user/{username}", data=json.dumps(options), headers=self.headers
+        )
+        return {"status": resp.status_code, "body": resp.json()}
 
     def auth(self, username, password, user_agent=None, ip=None):
         resp = requests.post(
