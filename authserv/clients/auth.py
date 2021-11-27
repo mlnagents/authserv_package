@@ -38,6 +38,15 @@ class AuthServ:
         )
         return {"status": resp.status_code, "body": resp.json()}
 
+    def create_session_with_token(self, username, token):
+        resp = requests.post(
+            url=f"{settings.AUTHSERV_HOST}/{self.api_path}/create_session", data=json.dumps({
+                "username": username,
+                "token": token
+            }), headers=self.headers
+        )
+        return {"status": resp.status_code, "body": resp.json()}
+
     def auth_session(self, token):
         resp = requests.get(
             url=f"{settings.AUTHSERV_HOST}/{self.api_path}/session?token={token}&service={settings.AUTHSERV_SERVICE_NAME}", headers=self.headers
