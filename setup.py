@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 app_name = "authserv"
-version = "0.24"
+version = "0.25"
 long_description = "authserv package"
 
 setup(
