@@ -29,6 +29,20 @@ class AuthServ:
             }), headers=self.headers
         )
         return {"status": resp.status_code, "body": resp.json()}
+    
+    def delete_user_by_token(self, token):
+        resp = requests.delete(
+            url=f"{settings.AUTHSERV_HOST}/{self.api_path}/user-by-session", data=json.dumps({
+                "token": token
+            }), headers=self.headers
+        )
+        return {"status": resp.status_code, "body": resp.json()}
+    
+    def delete_user_by_username(self, username):
+        resp = requests.delete(
+            url=f"{settings.AUTHSERV_HOST}/{self.api_path}/user/{username}", headers=self.headers
+        )
+        return {"status": resp.status_code, "body": resp.json()}
 
     def create_session(self, username):
         resp = requests.post(
