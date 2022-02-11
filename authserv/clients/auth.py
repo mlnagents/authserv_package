@@ -18,6 +18,12 @@ class AuthServ:
             url=f"{settings.AUTHSERV_HOST}/{self.api_path}/user/{username}", data=json.dumps(options), headers=self.headers
         )
         return {"status": resp.status_code, "body": resp.json()}
+    
+    def delete_user_from_service(self, username):
+        resp = requests.post(
+            url=f"{settings.AUTHSERV_HOST}/{self.api_path}/delete-from-service", data=json.dumps({"username": username, "service": settings.AUTHSERV_SERVICE_NAME}), headers=self.headers
+        )
+        return {"status": resp.status_code, "body": resp.json()}
 
     def auth(self, username, password, user_agent=None, ip=None):
         resp = requests.post(
