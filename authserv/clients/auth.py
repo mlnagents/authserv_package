@@ -50,6 +50,12 @@ class AuthServ:
         )
         return {"status": resp.status_code, "body": resp.json()}
 
+    def force_delete_user_by_username(self, username):
+        resp = requests.delete(
+            url=f"{settings.AUTHSERV_HOST}/{self.api_path}/force-delete/{username}", headers=self.headers
+        )
+        return {"status": resp.status_code, "body": None}
+
     def create_session(self, username):
         resp = requests.post(
             url=f"{settings.AUTHSERV_HOST}/{self.api_path}/create_session", data=json.dumps({
