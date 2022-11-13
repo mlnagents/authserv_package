@@ -78,7 +78,13 @@ class AuthServ:
             url=f"{settings.AUTHSERV_HOST}/{self.api_path}/session?token={token}&service={settings.AUTHSERV_SERVICE_NAME}", headers=self.headers
         )
         return {"status": resp.status_code, "body": resp.json()}
-    
+
+    def device(self, token):
+        resp = requests.get(
+            url=f"{settings.AUTHSERV_HOST}/{self.api_path}/device?token={token}", headers=self.headers
+        )
+        return {"status": resp.status_code, "body": resp.json()}
+
     def get_user_by_username(self, username):
         resp = requests.get(
             url=f"{settings.AUTHSERV_HOST}/{self.api_path}/user/{username}", headers=self.headers
