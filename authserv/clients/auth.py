@@ -35,6 +35,16 @@ class AuthServ:
             }), headers=self.headers
         )
         return {"status": resp.status_code, "body": resp.json()}
+
+    def auth_v2(self, username, password, device=None):
+        resp = requests.post(
+            url=f"{settings.AUTHSERV_HOST}/{self.api_path}/auth", data=json.dumps({
+                "username": username,
+                "password": password,
+                "device": device
+            }), headers=self.headers
+        )
+        return {"status": resp.status_code, "body": resp.json()}
     
     def delete_user_by_token(self, token):
         resp = requests.delete(
